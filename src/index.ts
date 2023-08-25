@@ -14,6 +14,8 @@ import express, { Express, Request, Response } from 'express';
 // const cors = require('cors');
 import cors from 'cors';
 
+import { readFileSync, writeFileSync } from 'fs';
+
 // ==============================================
 
 const server = express();
@@ -25,14 +27,25 @@ server.use(cors());
 // ==============================================
 
 server.use('*', (req: Request, res: Response) => {
-    res.send(`
+
+  const count = readFileSync('count.txt', 'utf-8');
+  console.log('count: ', count);
+
+  const new_count = parseInt(count) + 1;
+
+  writeFileSync('count.txt', new_count.toString());
+
+  const html = `
     <htnl>
       <head></head>
       <body>
         <h1>Success with TypeScript!</h1>
+        <p>count: ${new_count}</p>
       </body>
     </html>
-  `);
+  `;
+
+  res.send(html);
 });
 
 // ==============================================

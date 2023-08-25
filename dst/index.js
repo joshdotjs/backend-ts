@@ -9,6 +9,7 @@ console.log('NODE_ENV: ', process.env.NODE_ENV);
 import express from 'express';
 // const cors = require('cors');
 import cors from 'cors';
+import { readFileSync, writeFileSync } from 'fs';
 // ==============================================
 const server = express();
 // middleware
@@ -16,7 +17,20 @@ server.use(express.json());
 server.use(cors());
 // ==============================================
 server.use('*', (req, res) => {
-    res.send('<h1>Success!</h1>');
+    const count = readFileSync('count.txt', 'utf-8');
+    console.log('count: ', count);
+    const new_count = parseInt(count) + 1;
+    writeFileSync('count.txt', new_count.toString());
+    const html = `
+    <htnl>
+      <head></head>
+      <body>
+        <h1>Success with TypeScript!</h1>
+        <p>count: ${new_count}</p>
+      </body>
+    </html>
+  `;
+    res.send(html);
 });
 // ==============================================
 const PORT = process.env.PORT ?? 5000;
