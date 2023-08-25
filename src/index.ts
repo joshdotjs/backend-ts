@@ -25,7 +25,14 @@ server.use(cors());
 // ==============================================
 
 server.use('*', (req: Request, res: Response) => {
-  res.send('<h1>Success with TypeScript!</h1>');
+    res.send(`
+    <htnl>
+      <head></head>
+      <body>
+        <h1>Success with TypeScript!</h1>
+      </body>
+    </html>
+  `);
 });
 
 // ==============================================
