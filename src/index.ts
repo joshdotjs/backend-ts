@@ -38,9 +38,9 @@ server.use('/home', (req: Request, res: Response) => {
   const html = `
     <htnl>
       <head></head>
-      <body>
+      <body style="height: 100vh; display: grid; place-items: center;">
         <h1>Success with TypeScript!</h1>
-        <h2>This HTML is sent from our deployed Node.js backend.</h2>
+        <h5>This HTML is the response of a GET request to our deployed Node.js endpoint <code>/home</code>.</h5>
         <p>count: ${new_count}</p>
       </body>
     </html>
