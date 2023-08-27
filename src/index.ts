@@ -26,7 +26,7 @@ server.use(cors());
 
 // ==============================================
 
-server.use('*', (req: Request, res: Response) => {
+server.use('/home', (req: Request, res: Response) => {
 
   const count = readFileSync('count.txt', 'utf-8');
   console.log('count: ', count);
@@ -40,11 +40,27 @@ server.use('*', (req: Request, res: Response) => {
       <head></head>
       <body>
         <h1>Success with TypeScript!</h1>
+        <h2>This HTML is sent from our deployed Node.js backend.</h2>
         <p>count: ${new_count}</p>
       </body>
     </html>
   `;
 
+  res.send(html);
+});
+
+
+// ==============================================
+
+server.use('*', (req: Request, res: Response) => {
+  const html = `
+    <htnl>
+      <head></head>
+      <body>
+        <h1>404 - catch all endpoint</h1>
+      </body>
+    </html>
+  `;
   res.send(html);
 });
 
